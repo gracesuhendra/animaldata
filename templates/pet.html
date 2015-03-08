@@ -1,0 +1,81 @@
+<html>
+	
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<div class = 'pane'>
+		<h1>{{ animal.name }}</h1>
+		
+		{% with messages = get_flashed_messages() %}
+      {% if messages %}
+          
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% if items !=[] %}
+
+		<a href = "{{url_for('newPetItem', animal_id = animal.id )}}">Create New Item</a>
+	</br></br>
+
+	<h2>Male</h2>
+
+		{% for i in items %}
+		{% if i.gender == 'Male' %}
+
+		<p>{{i.name}}</p>
+	
+
+		<p>{{i.description}}</p>
+	
+
+	
+		<a href='{{url_for('editPetItem', animal_id = animal.id, pet_id=i.id ) }}' >Edit</a>
+	</br>
+	<a href='{{url_for('deletePetItem', animal_id = animal.id, pet_id=i.id ) }}' >Delete</a>
+</br>
+</br>
+		{% endif %}
+
+		{% endfor %}
+
+		</br></br>
+
+
+	<h2>Female</h2>
+
+		{% for i in items %}
+		{% if i.gender == 'Female' %}
+
+		<p>{{i.name}}</p>
+	
+
+		<p>{{i.description}}</p>
+	
+
+	
+		<a href='{{url_for('editPetItem', animal_id = animal.id, pet_id=i.id ) }}' >Edit</a>
+	</br>
+	<a href='{{url_for('deletePetItem', animal_id = animal.id, pet_id=i.id ) }}' >Delete</a>
+</br>
+</br>
+        {% endif %}
+
+		{% endfor %}
+		
+		
+
+
+		{% else %}
+		<p> You currently have no pet items. <p>
+		<a href = "{{url_for('newPetItem', animal_id = animal.id )}}">Create New Item</a>
+			{% endif %}
+</div>
+	</body>
+
+</html>
